@@ -11,24 +11,24 @@ namespace AMS_Backend_V2.Repositories.StudentRepo
             _context = context;
         }
 
-        public async Task<IEnumerable<Student>> GetAllAsync()
+        public async Task<IEnumerable<Student>> GetAllStudentsAsync()
         {
             return await _context.Students.ToListAsync();
         }
-        public async Task<Student> GetByIdAsync(int id)
+        public async Task<Student> GetByStudentIdAsync(int id)
         {
             return await _context.Students.FindAsync();
         }
-        public async Task AddAsync(Student student)
+        public async Task AddStudentAsync(Student student)
         {
             await _context.Students.AddAsync(student);
         }
-        public async Task UpdateAsync(Student student)
+        public async Task UpdateStudentAsync(Student student)
         {
             _context.Students.Update(student);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteAsync(int id)
+        public async Task DeleteStudentAsync(int id)
         {
             var student = await _context.Students.FindAsync(id);
             if (student != null)

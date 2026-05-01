@@ -1,7 +1,7 @@
 ﻿using AMS_Backend_V2.Data;
 using AMS_Backend_V2.Models;
 using Microsoft.EntityFrameworkCore;
-namespace AMS_Backend_V2.Repositories.TeacheRepo
+namespace AMS_Backend_V2.Repositories.TeacherRepo
 {
     public class TeacherRepository : ITeacherRepository
     {
@@ -10,24 +10,24 @@ namespace AMS_Backend_V2.Repositories.TeacheRepo
         {
             _context = context;
         }
-        public async Task<IEnumerable<Teacher>> GetAllAsync() 
+        public async Task<IEnumerable<Teacher>> GetAllTeachersAsync() 
         {
             return await _context.Teachers.ToListAsync();
         }
-        public async Task<Teacher> GetByIdAsync(int id)
+        public async Task<Teacher> GetByTeacherIdAsync(int id)
         {
             return await _context.Teachers.FindAsync();
         }
-        public async Task AddAsync(Teacher teacher)
+        public async Task AddTeacherAsync(Teacher teacher)
         {
             await _context.Teachers.AddAsync(teacher);
         }
-        public async Task UpdateAsync(Teacher teacher)
+        public async Task UpdateTeacherAsync(Teacher teacher)
         {
             _context.Teachers.Update(teacher);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteAsync(int id)
+        public async Task DeleteTeacherAsync(int id)
         {
             var teacher = await _context.Teachers.FindAsync(id);
             if (teacher != null)

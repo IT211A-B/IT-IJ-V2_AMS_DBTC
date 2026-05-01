@@ -4,10 +4,10 @@ namespace AMS_Backend_V2.Repositories.AttendanceRepo
 {
     public interface IAttendanceRepository
     {
-        Task<IEnumerable<Attendance>> GetAllAsync();
-        Task<Attendance> GetByIdAsync(int id);
-        Task AddAsync(Attendance attendance);
-        Task UpdateAsync(Attendance attendance);
-        Task DeleteAsync(int id);
+        Task<IEnumerable<Attendance>> GetAllAttendancesAsync();
+        Task<Attendance> GetByAttendanceIdAsync(int id);
+        Task AddAttendanceAsync(Attendance attendance);
+        Task UpdateAttendanceAsync(Attendance attendance);
+        Task DeleteAttendanceAsync(int id);
     }
 }
