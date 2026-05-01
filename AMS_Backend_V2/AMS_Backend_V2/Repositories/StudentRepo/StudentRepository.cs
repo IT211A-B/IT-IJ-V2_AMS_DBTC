@@ -19,13 +19,13 @@ namespace AMS_Backend_V2.Repositories.StudentRepo
         {
             return await _context.Students.FindAsync();
         }
-        public async Task AddAsync(Student Student)
+        public async Task AddAsync(Student student)
         {
-            await _context.Students.AddAsync(Student);
+            await _context.Students.AddAsync(student);
         }
-        public async Task UpdateAsync(Student Student)
+        public async Task UpdateAsync(Student student)
         {
-            _context.Students.Update(Student);
+            _context.Students.Update(student);
             await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(int id)
