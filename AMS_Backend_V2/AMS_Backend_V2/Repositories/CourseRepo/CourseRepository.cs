@@ -29,7 +29,7 @@ namespace AMS_Backend_V2.Repositories.CourseRepo
         }
         public async Task DeleteAsync(int id)
         {
-            var course = _context.Courses.Find(id);
+            var course = await _context.Courses.FindAsync(id);
             if (course != null) 
             {
                 _context.Courses.Remove(course);
