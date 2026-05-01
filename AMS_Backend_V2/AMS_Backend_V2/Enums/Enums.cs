@@ -1,15 +1,18 @@
-﻿namespace AMS_Backend_V2.Enums
+﻿using System.Text.Json.Serialization;
+
+namespace AMS_Backend_V2.Enums
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Sex
     {
-        Male = 'M',
-        Female = 'F'
+        Male,
+        Female
     }
 
     public enum Status
     {
-        Present = 'P',
-        Late = 'L',
-        Absent = 'A'
+        Present,
+        Late,
+        Absent
     }
 }
