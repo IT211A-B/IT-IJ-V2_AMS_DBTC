@@ -7,7 +7,7 @@ namespace AMS_Backend_V2.Services.TeacherServe
         Task<IEnumerable<TeacherDto.ReadTeacherDto>> GetAllTeachersAsync();
         Task<TeacherDto.ReadTeacherDto> GetByTeacherIdAsync(int id);
         Task CreateTeacherAsync(TeacherDto.CreateTeacherDto teacherDto);
-        Task UpdateTeacherAsync(TeacherDto.CreateTeacherDto teacherDto);
+        Task UpdateTeacherAsync(TeacherDto.UpdateTeacherDto teacherDto);
         Task DeleteTeacherAsync(int id);
     }
 }
