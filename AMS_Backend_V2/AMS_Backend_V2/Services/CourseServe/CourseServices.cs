@@ -5,8 +5,8 @@ namespace AMS_Backend_V2.Services.CourseServe
 {
     public class CourseService : ICourseServices
     {
-        private readonly ICourseServices _courseRepo;
-        public  CourseService(ICourseServices courseRepo)
+        private readonly ICourseRepository _courseRepo;
+        public  CourseService(ICourseRepository courseRepo)
         {
             _courseRepo = courseRepo;
         }
