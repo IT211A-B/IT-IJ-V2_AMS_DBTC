@@ -17,6 +17,7 @@ namespace AMS_Backend_V2.DTOs
         }
         public class UpdateCourseDto
         {
+            [Required] public int CourseId { get; set; }
             [Required] public string CourseCode { get; set; }
             [Required] public string Description { get; set; }
         }

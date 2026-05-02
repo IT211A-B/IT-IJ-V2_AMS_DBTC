@@ -23,6 +23,7 @@ namespace AMS_Backend_V2.DTOs
         
         public class UpdateAttentanceDto
         {
+            [Required] public int AttendanceId { get; set; }
             [Required] public int StudentId { get; set; }
             [Required] public int CourseId { get; set; }
             [Required] public DateTime Date { get; set; }

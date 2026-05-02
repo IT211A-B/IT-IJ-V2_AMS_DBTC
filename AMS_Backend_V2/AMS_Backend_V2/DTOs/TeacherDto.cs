@@ -22,6 +22,7 @@ namespace AMS_Backend_V2.DTOs
         }
         public class UpdateTeacherDto
         {
+            [Required] public int TeacherId { get; set; }
             [Required] public string FirstName { get; set; }
             [Required] public string LastName { get; set; }
             [Required] public Sex Sex { get; set; }
