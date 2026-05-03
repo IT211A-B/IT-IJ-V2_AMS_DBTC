@@ -1,7 +1,9 @@
 using AMS_Backend_V2.Data;
+using AMS_Backend_V2.Repositories.AttendanceRepo;
 using AMS_Backend_V2.Repositories.CourseRepo;
 using AMS_Backend_V2.Repositories.StudentRepo;
 using AMS_Backend_V2.Repositories.TeacherRepo;
+using AMS_Backend_V2.Services.AttendanceServe;
 using AMS_Backend_V2.Services.CourseServe;
 using AMS_Backend_V2.Services.StudentServe;
 using AMS_Backend_V2.Services.TeacherServe;
@@ -20,9 +22,11 @@ builder.Services.AddDbContext<AttendanceDbContext>(options =>
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
 builder.Services.AddScoped<IStudentServices, StudentService>();
 builder.Services.AddScoped<ITeacherServices, TeacherService>();
 builder.Services.AddScoped<ICourseServices, CourseService>();
+builder.Services.AddScoped<IAttendanceServices, AttendanceService>();
 
 var app = builder.Build();
 
