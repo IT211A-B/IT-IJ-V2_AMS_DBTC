@@ -1,6 +1,8 @@
 using AMS_Backend_V2.Data;
+using AMS_Backend_V2.Repositories.CourseRepo;
 using AMS_Backend_V2.Repositories.StudentRepo;
 using AMS_Backend_V2.Repositories.TeacherRepo;
+using AMS_Backend_V2.Services.CourseServe;
 using AMS_Backend_V2.Services.StudentServe;
 using AMS_Backend_V2.Services.TeacherServe;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +19,10 @@ builder.Services.AddDbContext<AttendanceDbContext>(options =>
 
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IStudentServices, StudentService>();
 builder.Services.AddScoped<ITeacherServices, TeacherService>();
+builder.Services.AddScoped<ICourseServices, CourseService>();
 
 var app = builder.Build();
 
