@@ -1,4 +1,6 @@
 using AMS_Backend_V2.Data;
+using AMS_Backend_V2.Repositories.StudentRepo;
+using AMS_Backend_V2.Services.StudentServe;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AttendanceDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentServices, StudentService>();
 
 var app = builder.Build();
 
