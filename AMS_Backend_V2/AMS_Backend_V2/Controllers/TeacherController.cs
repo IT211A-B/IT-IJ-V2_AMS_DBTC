@@ -42,7 +42,7 @@ namespace AMS_Backend_V2.Controllers
         public async Task<IActionResult> UpdateTeacher(TeacherDto.UpdateTeacherDto teacherDto)
         {
             await _teacherServices.UpdateTeacherAsync(teacherDto);
-            return NotFound();
+            return NoContent();
         }
 
         [HttpDelete]
