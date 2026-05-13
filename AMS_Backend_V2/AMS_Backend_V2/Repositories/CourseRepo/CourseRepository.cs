@@ -21,6 +21,7 @@ namespace AMS_Backend_V2.Repositories.CourseRepo
         public async Task AddCourseAsync(Course course)
         {
             await _context.Courses.AddAsync(course);
+            await _context.SaveChangesAsync();
         }
         public async Task UpdateCourseAsync(Course course)
         {
