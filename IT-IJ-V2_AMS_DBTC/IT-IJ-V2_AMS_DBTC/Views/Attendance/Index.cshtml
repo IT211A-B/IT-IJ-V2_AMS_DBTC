@@ -1,0 +1,159 @@
+﻿@{
+	@using IT_IJ_V2_AMS_DBTC.Models;
+	@model IEnumerable<StudentModels>
+}
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+}
+@section Scripts {
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/jquery/student.js" asp-append-version="true"></script>
+}
+
+
+<!--Header-->
+<div class="page-header">
+	<span class="card-title">Attendance List</span>
+	<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Attendance</button>
+</div>
+
+<!--Search/Filter Row-->
+<div class="search-row">
+	<input type="text" id="searchInput" placeholder="Search by student or course..." />
+	<select id="statusFilter" class="form-control" style="max-width:160px;">
+		<option value="">All Status</option>
+		<option value="Present">Present</option>
+		<option value="Absent">Absent</option>
+		<option value="Late">Late</option>
+	</select>
+</div>
+
+<!--Legend-->
+<div class="att-legend">
+	<span><span class="att-dot" style="background:#2d8a5e;"></span> Present</span>
+	<span><span class="att-dot" style="background:#c0392b;"></span> Absent</span>
+	<span><span class="att-dot" style="background:#c97c1a;"></span> Late</span>
+</div>
+
+<!--Attendance Table-->
+<table id="attendance-table" class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Date</th>
+			<th>Student</th>
+			<th>Course</th>
+			<th>Status</th>
+			<th>Remarks</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody id="attendanceTableBody">
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@item.AttendanceId</td>
+				<td>@item.Date.ToString("yyyy-MM-dd")</td>
+				<td>@item.StudentName</td>
+				<td>@item.CourseName</td>
+				<td>
+					@if (item.Status == "Present")
+					{
+						<span><span class="att-dot" style="background:#2d8a5e;"></span> Present</span>
+					}
+					else if (item.Status == "Absent")
+					{
+						<span><span class="att-dot" style="background:#c0392b;"></span> Absent</span>
+					}
+					else
+					{
+						<span><span class="att-dot" style="background:#c97c1a;"></span> Late</span>
+					}
+				</td>
+				<td>@item.Remarks</td>
+				<td>
+					<button class="btn btn-sm btn-secondary edit-btn" data-id="@item.AttendanceId">Edit</button>
+					<button class="btn btn-sm btn-danger delete-btn" data-id="@item.AttendanceId">Delete</button>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5>Add Attendance</h5>
+			</div>
+			<div class="modal-body">
+				<input id="createDate" type="date" class="form-control mb-2" />
+				<select id="createStudent" class="form-control mb-2">
+					<option value="">Select Student</option>
+					<!-- populated by jQuery -->
+				</select>
+				<select id="createStatus" class="form-control mb-2">
+					<option value="">Select Status</option>
+					<option value="Present">Present</option>
+					<option value="Absent">Absent</option>
+					<option value="Late">Late</option>
+				</select>
+				<textarea id="createRemarks" class="form-control mb-2" placeholder="Remarks (optional)"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				<button id="saveAttendanceBtn" class="btn btn-primary">Save Attendance</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--Edit Modal-->
+<div class="modal fade" id="editModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5>Edit Attendance</h5>
+			</div>
+			<div class="modal-body">
+				<input id="editDate" type="date" class="form-control mb-2" />
+				<select id="editStudent" class="form-control mb-2">
+					<option value="">Select Student</option>
+					<!-- populated by jQuery -->
+				</select>
+				<select id="editStatus" class="form-control mb-2">
+					<option value="">Select Status</option>
+					<option value="Present">Present</option>
+					<option value="Absent">Absent</option>
+					<option value="Late">Late</option>
+				</select>
+				<textarea id="editRemarks" class="form-control mb-2" placeholder="Remarks (optional)"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				<button id="updateAttendanceBtn" class="btn btn-primary">Update Attendance</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--Delete Modal-->
+<div class="modal fade" id="deleteModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5>Delete Attendance</h5>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to delete this attendance record?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+				<button id="deleteAttendanceBtn" class="btn btn-danger">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>
+
