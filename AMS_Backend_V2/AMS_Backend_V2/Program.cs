@@ -27,6 +27,11 @@ builder.Services.AddScoped<IStudentServices, StudentService>();
 builder.Services.AddScoped<ITeacherServices, TeacherService>();
 builder.Services.AddScoped<ICourseServices, CourseService>();
 builder.Services.AddScoped<IAttendanceServices, AttendanceService>();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+    });
 
 var app = builder.Build();
 

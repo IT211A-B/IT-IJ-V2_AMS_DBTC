@@ -19,6 +19,7 @@ namespace AMS_Backend_V2.Services.StudentServe
             {
                 StudentId = s.StudentId,
                 FullName = s.FirstName + " " + s.LastName,
+                Sex = s.Sex,
                 Email =  s.Email,
             }).ToList();
         }
@@ -33,6 +34,7 @@ namespace AMS_Backend_V2.Services.StudentServe
             {
                 StudentId = students.StudentId,
                 FullName = students.FirstName + " " + students.LastName,
+                Sex = students.Sex,
                 Email = students.Email,
             };
         }
