@@ -16,11 +16,12 @@ namespace AMS_Backend_V2.Repositories.TeacherRepo
         }
         public async Task<Teacher> GetByTeacherIdAsync(int id)
         {
-            return await _context.Teachers.FindAsync();
+            return await _context.Teachers.FindAsync(id);
         }
         public async Task AddTeacherAsync(Teacher teacher)
         {
             await _context.Teachers.AddAsync(teacher);
+            await _context.SaveChangesAsync();
         }
         public async Task UpdateTeacherAsync(Teacher teacher)
         {

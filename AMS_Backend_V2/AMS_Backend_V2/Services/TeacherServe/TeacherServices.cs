@@ -18,7 +18,9 @@ namespace AMS_Backend_V2.Services.TeacherServe
             return teachers.Select(s => new TeacherDto.ReadTeacherDto
             {
                 TeacherId = s.TeacherId,
-                FullName = s.FirstName + " " + s.LastName
+                FullName = s.FirstName + " " + s.LastName,
+                Sex = s.Sex,
+                Email = s.Email,
             }).ToList();
         }
         public async Task<TeacherDto.ReadTeacherDto> GetByTeacherIdAsync(int id)
@@ -31,7 +33,9 @@ namespace AMS_Backend_V2.Services.TeacherServe
             return new TeacherDto.ReadTeacherDto
             {
                 TeacherId = teachers.TeacherId,
-                FullName = teachers.FirstName + " " + teachers.LastName
+                FullName = teachers.FirstName + " " + teachers.LastName,
+                Sex = teachers.Sex,
+                Email = teachers.Email,
             };
         }
         public async Task CreateTeacherAsync(TeacherDto.CreateTeacherDto teacherDto)
