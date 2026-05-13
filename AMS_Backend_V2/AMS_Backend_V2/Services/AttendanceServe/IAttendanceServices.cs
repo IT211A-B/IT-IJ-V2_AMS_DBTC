@@ -5,7 +5,7 @@ namespace AMS_Backend_V2.Services.AttendanceServe
     {
         Task<IEnumerable<AttendanceDto.ReadAttendanceDto>> GetAllAttendancesAsync();
         Task<AttendanceDto.ReadAttendanceDto> GetByAttendanceIdAsync(int id);
-        Task CreateAttendanceAsync(AttendanceDto.CreateAttendanceDto AttendanceDto);
+        Task<bool> CreateAttendanceAsync(AttendanceDto.CreateAttendanceDto AttendanceDto);
         Task UpdateAttendanceAsync(AttendanceDto.UpdateAttentanceDto AttendanceDto);
         Task DeleteAttendanceAsync(int id);
     }

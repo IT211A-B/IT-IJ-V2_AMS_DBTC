@@ -21,6 +21,7 @@ namespace AMS_Backend_V2.Repositories.AttendanceRepo
         public async Task AddAttendanceAsync(Attendance attendance)
         {
             await _context.Attendances.AddAsync(attendance);
+            await _context.SaveChangesAsync();
         }
         public async Task UpdateAttendanceAsync(Attendance attendance)
         {

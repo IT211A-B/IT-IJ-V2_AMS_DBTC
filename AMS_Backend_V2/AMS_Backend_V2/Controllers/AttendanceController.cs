@@ -32,7 +32,11 @@ namespace AMS_Backend_V2.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAttendance(AttendanceDto.CreateAttendanceDto attendanceDto)
         {
-            await _attendanceServices.CreateAttendanceAsync(attendanceDto);
+            var success = await _attendanceServices.CreateAttendanceAsync(attendanceDto);
+            if (!success) 
+            {
+                return BadRequest("Invalid StudentId or CourseId. Please ensure both exist in the database");
+            }
             return Ok("Attendance Created Successfully");
         }
 

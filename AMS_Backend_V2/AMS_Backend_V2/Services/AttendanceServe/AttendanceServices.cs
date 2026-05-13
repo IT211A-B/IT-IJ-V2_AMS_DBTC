@@ -2,6 +2,7 @@
 using AMS_Backend_V2.Enums;
 using AMS_Backend_V2.Models;
 using AMS_Backend_V2.Repositories.AttendanceRepo;
+using AMS_Backend_V2.Repositories.CourseRepo;
 using AMS_Backend_V2.Repositories.StudentRepo;
 using AMS_Backend_V2.Services.AttendanceServe;
 using System.ComponentModel.DataAnnotations;
@@ -43,8 +44,26 @@ namespace AMS_Backend_V2.Services.StudentServe
                 Status = attendance.Status,
             };
         }
-        public async Task CreateAttendanceAsync(AttendanceDto.CreateAttendanceDto attendanceDto)
+        
+        private readonly IAttendanceRepository _attendanceRepository;
+        private readonly IStudentRepository _studentRepository;
+        private readonly ICourseRepository _courseRepository;
+
+        public AttendanceService(IAttendanceRepository attendanceRepo, IAttendanceRepository attendanceRepository, IStudentRepository studentRepository, ICourseRepository courseRepository) : this(attendanceRepo)
         {
+            _attendanceRepository = attendanceRepository;
+            _studentRepository = studentRepository;
+            _courseRepository = courseRepository;
+        }
+
+        public async Task<bool> CreateAttendanceAsync(AttendanceDto.CreateAttendanceDto attendanceDto)
+        {
+            var studentExists = await _studentRepository.GetByStudentIdAsync(attendanceDto.StudentId);
+            if (studentExists == null) return false;
+
+            var courseExists = await _courseRepository.GetByCourseIdAsync(attendanceDto.CourseId);
+            if (courseExists == null) return false;
+
             var attendance = new Attendance
             {
                 StudentId = attendanceDto.StudentId,
@@ -53,6 +72,7 @@ namespace AMS_Backend_V2.Services.StudentServe
                 Status = attendanceDto.Status,
             };
             await _attendanceRepo.AddAttendanceAsync(attendance);
+            return true;
         }
         public async Task UpdateAttendanceAsync(AttendanceDto.UpdateAttentanceDto attendanceDto)
         {
