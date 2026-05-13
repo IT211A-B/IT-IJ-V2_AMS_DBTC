@@ -17,11 +17,12 @@ namespace AMS_Backend_V2.Repositories.StudentRepo
         }
         public async Task<Student> GetByStudentIdAsync(int id)
         {
-            return await _context.Students.FindAsync();
+            return await _context.Students.FindAsync(id);
         }
         public async Task AddStudentAsync(Student student)
         {
             await _context.Students.AddAsync(student);
+            await _context.SaveChangesAsync();
         }
         public async Task UpdateStudentAsync(Student student)
         {

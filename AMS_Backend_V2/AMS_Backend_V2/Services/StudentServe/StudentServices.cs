@@ -18,7 +18,8 @@ namespace AMS_Backend_V2.Services.StudentServe
             return students.Select(s => new StudentDto.ReadStudentDto
             {
                 StudentId = s.StudentId,
-                FullName = s.FirstName + " " + s.LastName
+                FullName = s.FirstName + " " + s.LastName,
+                Email =  s.Email,
             }).ToList();
         }
         public async Task<StudentDto.ReadStudentDto> GetByStudentIdAsync(int id)
@@ -31,7 +32,8 @@ namespace AMS_Backend_V2.Services.StudentServe
             return new StudentDto.ReadStudentDto
             {
                 StudentId = students.StudentId,
-                FullName = students.FirstName + " " + students.LastName
+                FullName = students.FirstName + " " + students.LastName,
+                Email = students.Email,
             };
         }
         public async Task CreateStudentAsync(StudentDto.CreateStudentDto studentDto)
