@@ -31,6 +31,7 @@ Run this command in your terminal to restore and build the project:
 
 Bash
 dotnet build
+
 3. Set Database Connection
 Set your local PostgreSQL password using the environment variable below.
 
@@ -42,7 +43,9 @@ Bash (Mac/Linux):
 
 Bash
 export ConnectionStrings__Default="Host=localhost;Port=5432;Database=attendance_db;Username=postgres;Password=YOUR_PASSWORD"
+
 4. Run the App
+
 Bash
 dotnet run --project Backend/ --launch-profile manual-qa
 Login: http://localhost:5003/login
