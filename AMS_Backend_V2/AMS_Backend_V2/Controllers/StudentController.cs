@@ -13,7 +13,9 @@ namespace AMS_Backend_V2.Controllers
         {
             _studentServices = studentServices;
         }
-
+        /// <summary>
+        /// Retrieves a complete list of all students.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetAllStudents()
         {
@@ -21,6 +23,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok(students);
         }
 
+        /// <summary>
+        /// Retrieves the details of a specific student by their unique ID.
+        /// </summary>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByStudentId(int id)
         {
@@ -29,6 +34,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok(students);
         }
 
+        /// <summary>
+        /// Registers a new student into the system.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> CreateStudent(StudentDto.CreateStudentDto studentDto)
         {
@@ -36,6 +44,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok("Student Created Successfully");
         }
 
+        /// <summary>
+        /// Updates an existing student's information.
+        /// </summary>
         [HttpPut]
         public async Task<IActionResult> UpdateStudent(StudentDto.UpdateStudentDto studentDto)
         {
@@ -44,6 +55,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok("Student Updated Successfully");
         }
 
+        /// <summary>
+        /// Removes a student record from the system
+        /// </summary>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
