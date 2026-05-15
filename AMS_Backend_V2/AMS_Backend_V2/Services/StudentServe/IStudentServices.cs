@@ -7,7 +7,7 @@ namespace AMS_Backend_V2.Services.StudentServe
         Task<IEnumerable<StudentDto.ReadStudentDto>> GetAllStudentsAsync();
         Task<StudentDto.ReadStudentDto> GetByStudentIdAsync(int id);
         Task CreateStudentAsync(StudentDto.CreateStudentDto studentDto);
-        Task UpdateStudentAsync(StudentDto.UpdateStudentDto studentDto);
-        Task DeleteStudentAsync(int id);
+        Task<bool> UpdateStudentAsync(StudentDto.UpdateStudentDto studentDto);
+        Task<bool> DeleteStudentAsync(int id);
     }
 }

@@ -25,7 +25,7 @@ namespace AMS_Backend_V2.Controllers
         public async Task<IActionResult> GetByStudentId(int id)
         {
             var students = await _studentServices.GetByStudentIdAsync(id);
-            if (students == null) return NotFound();
+            if (students == null) return NotFound($"Student with ID {id} not found");
             return Ok(students);
         }
 
@@ -39,14 +39,16 @@ namespace AMS_Backend_V2.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateStudent(StudentDto.UpdateStudentDto studentDto)
         {
-            await _studentServices.UpdateStudentAsync(studentDto);
-            return NoContent();
+            var update = await _studentServices.UpdateStudentAsync(studentDto);
+            if (!update) return NotFound("Update Failed: Student Not Found");
+            return Ok("Student Updated Successfully");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
-            await _studentServices.DeleteStudentAsync(id);
+            var delete = await _studentServices.DeleteStudentAsync(id);
+            if (!delete) return NotFound("Delete Failed: Student Not Found");
             return Ok("Student Deleted Successfully");
         }
     }

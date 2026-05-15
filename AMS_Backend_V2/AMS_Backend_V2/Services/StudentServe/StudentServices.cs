@@ -49,21 +49,29 @@ namespace AMS_Backend_V2.Services.StudentServe
             };
             await _studentRepo.AddStudentAsync(student);
         }
-        public async Task UpdateStudentAsync(StudentDto.UpdateStudentDto studentDto)
+        public async Task<bool> UpdateStudentAsync(StudentDto.UpdateStudentDto studentDto)
         {
             var eStudent = await _studentRepo.GetByStudentIdAsync(studentDto.StudentId);
-            if (eStudent != null)
+            if (eStudent == null)
             {
-                eStudent.FirstName = studentDto.FirstName;
-                eStudent.LastName = studentDto.LastName;
-                eStudent.Sex = studentDto.Sex;
-                eStudent.Email = studentDto.Email;
-                await _studentRepo.UpdateStudentAsync(eStudent);
+                return false;
             }
+            eStudent.FirstName = studentDto.FirstName;
+            eStudent.LastName = studentDto.LastName;
+            eStudent.Sex = studentDto.Sex;
+            eStudent.Email = studentDto.Email;
+            await _studentRepo.UpdateStudentAsync(eStudent);
+            return true;
         }
-        public async Task DeleteStudentAsync(int id)
+        public async Task<bool> DeleteStudentAsync(int id)
         {
+            var student = await _studentRepo.GetByStudentIdAsync(id);
+            if (student == null)
+            {
+                return false;
+            }
             await _studentRepo.DeleteStudentAsync(id);
+            return true;
         }
     }
 }
