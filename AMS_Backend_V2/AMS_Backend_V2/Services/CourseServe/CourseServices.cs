@@ -43,20 +43,28 @@ namespace AMS_Backend_V2.Services.CourseServe
             };
             await _courseRepo.AddCourseAsync(courses);
         }
-        public async Task UpdateCourseAsync(CourseDto.UpdateCourseDto courseDto)
+        public async Task<bool> UpdateCourseAsync(CourseDto.UpdateCourseDto courseDto)
         {
             var eCourse = await _courseRepo.GetByCourseIdAsync(courseDto.CourseId);
-            if (eCourse != null)
+            if (eCourse == null)
             {
-                eCourse.CourseId = courseDto.CourseId;
-                eCourse.CourseCode = courseDto.CourseCode;
-                eCourse.Description = courseDto.Description;
-                await _courseRepo.UpdateCourseAsync(eCourse);
+                return false;
             }
+            eCourse.CourseId = courseDto.CourseId;
+            eCourse.CourseCode = courseDto.CourseCode;
+            eCourse.Description = courseDto.Description;
+            await _courseRepo.UpdateCourseAsync(eCourse);
+            return true;
         }
-        public async Task DeleteCourseAsync(int id)
+        public async Task<bool> DeleteCourseAsync(int id)
         {
+            var course = await _courseRepo.GetByCourseIdAsync(id);
+            if (course == null)
+            {
+                return false;
+            }
             await _courseRepo.DeleteCourseAsync(id);
+            return true;
         }
     }
 }

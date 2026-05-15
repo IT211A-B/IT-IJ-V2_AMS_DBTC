@@ -25,7 +25,7 @@ namespace AMS_Backend_V2.Controllers
         public async Task<IActionResult> GetByCourseId(int id)
         {
             var course = await _courseServices.GetByCourseIdAsync(id);
-            if (course == null) return NotFound();
+            if (course == null) return NotFound($"Course with ID {id} not found");
             return Ok(course);
         }
 
@@ -39,14 +39,16 @@ namespace AMS_Backend_V2.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateCourse(CourseDto.UpdateCourseDto courseDto)
         {
-            await _courseServices.UpdateCourseAsync(courseDto);
-            return NoContent();
+            var update = await _courseServices.UpdateCourseAsync(courseDto);
+            if (!update) return NotFound("Update Failed: Course Not Found");
+            return Ok("Course Updated Successfully");
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteCourse(int id)
         {
-            await _courseServices.DeleteCourseAsync(id);
+            var delete = await _courseServices.DeleteCourseAsync(id);
+            if (!delete) return NotFound("Delete Failed: Course Not Found");
             return Ok("Course Succesfully Deleted");
         }
     }
