@@ -1,4 +1,5 @@
-DonBosco Attendance Management System
+DON BOSCO ATTENDANCE MANAGEMENT SYSTEM
+
 An ASP.NET Core MVC web application with server-rendered Razor views built for Don Bosco Technical College.
 
 Tech Stack & Status
