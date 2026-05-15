@@ -13,6 +13,9 @@ namespace AMS_Backend_V2.Controllers
             _attendanceServices = attendanceServices;
         }
 
+        /// <summary>
+        /// Retrieves a complete list of all attendances.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetAllAttendancesAsync()
         {
@@ -20,6 +23,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok(attendances);
         }
 
+        /// <summary>
+        /// Retrieves the details of a specific attendance by their unique ID.
+        /// </summary>
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetByAttendanceId(int id)
@@ -29,6 +35,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok(attendance);
         }
 
+        /// <summary>
+        /// Registers a new attendance into the system.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> CreateAttendance(AttendanceDto.CreateAttendanceDto attendanceDto)
         {
@@ -40,6 +49,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok("Attendance Created Successfully");
         }
 
+        /// <summary>
+        /// Updates an existing attendance's information.
+        /// </summary>
         [HttpPut]
         public async Task<IActionResult> UpdateAttendance(AttendanceDto.UpdateAttentanceDto attentanceDto)
         {
@@ -48,6 +60,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok("Attendance Updated Successfully");
         }
 
+        /// <summary>
+        /// Removes an attendance record from the system.
+        /// </summary>
         [HttpDelete]
         public async Task<IActionResult> DeleteAttendance(int id)
         {
