@@ -74,21 +74,29 @@ namespace AMS_Backend_V2.Services.StudentServe
             await _attendanceRepo.AddAttendanceAsync(attendance);
             return true;
         }
-        public async Task UpdateAttendanceAsync(AttendanceDto.UpdateAttentanceDto attendanceDto)
+        public async Task<bool> UpdateAttendanceAsync(AttendanceDto.UpdateAttentanceDto attendanceDto)
         {
             var eAttendance = await _attendanceRepo.GetByAttendanceIdAsync(attendanceDto.AttendanceId);
-            if (eAttendance != null)
+            if (eAttendance == null)
             {
-                eAttendance.StudentId = attendanceDto.StudentId;
-                eAttendance.CourseId = attendanceDto.CourseId;
-                eAttendance.Date = attendanceDto.Date;
-                eAttendance.Status = attendanceDto.Status;
-                await _attendanceRepo.UpdateAttendanceAsync(eAttendance);
+                return false;
             }
+            eAttendance.StudentId = attendanceDto.StudentId;
+            eAttendance.CourseId = attendanceDto.CourseId;
+            eAttendance.Date = attendanceDto.Date;
+            eAttendance.Status = attendanceDto.Status;
+            await _attendanceRepo.UpdateAttendanceAsync(eAttendance);
+            return true;
         }
-        public async Task DeleteAttendanceAsync(int id)
+        public async Task<bool> DeleteAttendanceAsync(int id)
         {
+            var attendance = await _attendanceRepo.GetByAttendanceIdAsync(id);
+            if (attendance == null)
+            {
+                return false;
+            }
             await _attendanceRepo.DeleteAttendanceAsync(id);
+            return true;
         }
     }
 }
