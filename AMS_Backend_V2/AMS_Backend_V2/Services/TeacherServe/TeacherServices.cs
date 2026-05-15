@@ -49,21 +49,29 @@ namespace AMS_Backend_V2.Services.TeacherServe
             };
             await _teacherRepo.AddTeacherAsync(teacher);
         }
-        public async Task UpdateTeacherAsync(TeacherDto.UpdateTeacherDto teacherDto)
+        public async Task<bool> UpdateTeacherAsync(TeacherDto.UpdateTeacherDto teacherDto)
         {
             var eTeacher = await _teacherRepo.GetByTeacherIdAsync(teacherDto.TeacherId);
-            if (eTeacher != null)
+            if (eTeacher == null)
             {
-                eTeacher.FirstName = teacherDto.FirstName;
-                eTeacher.LastName = teacherDto.LastName;
-                eTeacher.Sex = teacherDto.Sex;
-                eTeacher.Email = teacherDto.Email;
-                await _teacherRepo.UpdateTeacherAsync(eTeacher);
+                return false;
             }
+            eTeacher.FirstName = teacherDto.FirstName;
+            eTeacher.LastName = teacherDto.LastName;
+            eTeacher.Sex = teacherDto.Sex;
+            eTeacher.Email = teacherDto.Email;
+            await _teacherRepo.UpdateTeacherAsync(eTeacher);
+            return true;
         }
-        public async Task DeleteTeacherAsync(int id)
+        public async Task<bool> DeleteTeacherAsync(int id)
         {
+            var student = await _teacherRepo.GetByTeacherIdAsync(id);
+            if (student == null)
+            {
+                return false;
+            }
             await _teacherRepo.DeleteTeacherAsync(id);
+            return true;
         }
     }
 }
