@@ -14,6 +14,9 @@ namespace AMS_Backend_V2.Controllers
             _courseServices = courseServices;
         }
 
+        /// <summary>
+        /// Retrieves a complete list of all courses.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetAllCourses()
         {
@@ -21,6 +24,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok(courses);
         }
 
+        /// <summary>
+        /// Retrieves the details of a specific course by their unique ID.
+        /// </summary>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByCourseId(int id)
         {
@@ -29,6 +35,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok(course);
         }
 
+        /// <summary>
+        /// Registers a new course into the system.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> CreateCourse(CourseDto.CreateCourseDto courseDto)
         {
@@ -36,6 +45,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok("Course Successfully Created");
         }
 
+        /// <summary>
+        /// Updates an existing course's information.
+        /// </summary>
         [HttpPut]
         public async Task<IActionResult> UpdateCourse(CourseDto.UpdateCourseDto courseDto)
         {
@@ -44,6 +56,9 @@ namespace AMS_Backend_V2.Controllers
             return Ok("Course Updated Successfully");
         }
 
+        /// <summary>
+        /// Removes a course record from the system.
+        /// </summary>
         [HttpDelete]
         public async Task<IActionResult> DeleteCourse(int id)
         {
