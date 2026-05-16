@@ -1,216 +1,66 @@
-﻿var Student = {
+﻿window.Student = (function () {
 
-    // ── READ: Load all students into the table ──────────────
-    loadAll: function () {
+    const BASE_URL = 'https://localhost:7177/api/Student';
+
+    // GET ALL
+    function getAll(success, error) {
         $.ajax({
-            url: '/api/student/getall',
+            url: BASE_URL,
             type: 'GET',
-            success: function (data) {
-                var tbody = $('#studentTableBody');
-                tbody.empty();
-
-                var filtered = data;
-                var search = $('#searchInput').val().toLowerCase();
-                if (search) {
-                    filtered = data.filter(function (s) {
-                        return (s.firstName + ' ' + s.lastName).toLowerCase().includes(search)
-                            || s.email.toLowerCase().includes(search);
-                    });
-                }
-
-                if (filtered.length === 0) {
-                    tbody.append('<tr><td colspan="4" class="text-center">No students found.</td></tr>');
-                    return;
-                }
-
-                $.each(filtered, function (i, s) {
-                    tbody.append(
-                        '<tr>' +
-                        '<td>' + s.studentId + '</td>' +
-                        '<td>' + s.firstName + ' ' + s.lastName + '</td>' +
-                        '<td>' + s.email + '</td>' +
-                        '<td>' +
-                        '<button class="btn btn-sm btn-warning btn-edit me-1" ' +
-                        'data-id="' + s.studentId + '">Edit</button>' +
-                        '<button class="btn btn-sm btn-danger btn-delete" ' +
-                        'data-id="' + s.studentId + '" ' +
-                        'data-number="' + s.studentId + '" ' +
-                        'data-name="' + s.firstName + ' ' + s.lastName + '">Delete</button>' +
-                        '</td>' +
-                        '</tr>'
-                    );
-                });
-
-                // Re-bind action buttons after table re-render
-                Student.bindActionButtons();
-            },
-            error: function () {
-                $('#studentTableBody').html(
-                    '<tr><td colspan="4" class="text-center text-danger">Failed to load students.</td></tr>'
-                );
-            }
+            success: success,
+            error: error
         });
-    },
+    }
 
-    // ── READ ONE: Get student by ID ─────────────────────────
-    getById: function (id, onSuccess) {
+    // GET BY ID
+    function getById(id, success, error) {
         $.ajax({
-            url: '/api/student/get/' + id,
+            url: BASE_URL + '/' + id,
             type: 'GET',
-            success: function (data) {
-                onSuccess(data);
-            },
-            error: function () {
-                alert('Failed to fetch student details.');
-            }
+            success: success,
+            error: error
         });
-    },
+    }
 
-    // ── CREATE ──────────────────────────────────────────────
-    create: function (payload, onSuccess, onError) {
+    // CREATE
+    function create(payload, success, error) {
         $.ajax({
-            url: '/api/student/create',
+            url: BASE_URL,
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(payload),
-            success: function () {
-                onSuccess();
-                Student.loadAll();
-            },
-            error: function (xhr) {
-                var msg = (xhr.responseJSON && xhr.responseJSON.message)
-                    ? xhr.responseJSON.message
-                    : 'Failed to create student.';
-                onError(msg);
-            }
+            success: success,
+            error: error
         });
-    },
+    }
 
-    // ── EDIT / UPDATE ───────────────────────────────────────
-    edit: function (payload, onSuccess, onError) {
+    // EDIT
+    function edit(id, payload, success, error) {
         $.ajax({
-            url: '/api/student/update/' + payload.studentId,
+            url: BASE_URL + '/' + id,
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify(payload),
-            success: function () {
-                onSuccess();
-                Student.loadAll();
-            },
-            error: function (xhr) {
-                var msg = (xhr.responseJSON && xhr.responseJSON.message)
-                    ? xhr.responseJSON.message
-                    : 'Failed to update student.';
-                onError(msg);
-            }
-        });
-    },
-
-    // ── DELETE ──────────────────────────────────────────────
-    remove: function (id, onSuccess) {
-        $.ajax({
-            url: '/api/student/delete/' + id,
-            type: 'DELETE',
-            success: function () {
-                onSuccess();
-                Student.loadAll();
-            },
-            error: function () {
-                alert('Failed to delete student.');
-            }
-        });
-    },
-
-    // ── Bind edit/delete buttons (called after table render) ─
-    bindActionButtons: function () {
-        $('.btn-edit').off('click').on('click', function () {
-            var id = $(this).data('id');
-            Student.getById(id, function (s) {
-                $('#editId').val(s.studentId);
-                $('#editStudentNumber').val(s.studentId);
-                $('#editFirstName').val(s.firstName);
-                $('#editLastName').val(s.lastName);
-                $('#editEmail').val(s.email);
-                $('#editModal').modal('show');
-            });
-        });
-
-        $('.btn-delete').off('click').on('click', function () {
-            $('#deleteId').val($(this).data('id'));
-            $('#deleteStudentNumber').text($(this).data('number'));
-            $('#deleteStudentName').text($(this).data('name'));
-            $('#deleteModal').modal('show');
+            success: success,
+            error: error
         });
     }
-};
 
-// ============================================================
-// DOM Ready — Wire up all UI events
-// ============================================================
-$(document).ready(function () {
-
-    // Initial load
-    Student.loadAll();
-
-    // Live search
-    $('#searchInput').on('input', function () {
-        Student.loadAll();
-    });
-
-    // ── Create Modal: reset on open ─────────────────────────
-    $('#createModal').on('show.bs.modal', function () {
-        $('#createStudentNumber').val('');
-        $('#createFirstName').val('');
-        $('#createLastName').val('');
-        $('#createEmail').val('');
-        $('#createError').text('').hide();
-    });
-
-    // ── Save new student ────────────────────────────────────
-    $('#saveCreateBtn').on('click', function () {
-        var firstName = $('#createFirstName').val().trim();
-        var lastName = $('#createLastName').val().trim();
-        var email = $('#createEmail').val().trim();
-
-        if (!firstName || !lastName || !email) {
-            $('#createError').text('Please fill in all required fields.').show();
-            return;
-        }
-        $('#createError').hide();
-
-        Student.create(
-            { firstName: firstName, lastName: lastName, email: email },
-            function () { $('#createModal').modal('hide'); },
-            function (msg) { $('#createError').text(msg).show(); }
-        );
-    });
-
-    // ── Save edited student ─────────────────────────────────
-    $('#saveEditBtn').on('click', function () {
-        var studentId = $('#editId').val();
-        var firstName = $('#editFirstName').val().trim();
-        var lastName = $('#editLastName').val().trim();
-        var email = $('#editEmail').val().trim();
-
-        if (!firstName || !lastName || !email) {
-            $('#editError').text('Please fill in all required fields.').show();
-            return;
-        }
-        $('#editError').hide();
-
-        Student.edit(
-            { studentId: Number(studentId), firstName: firstName, lastName: lastName, email: email },
-            function () { $('#editModal').modal('hide'); },
-            function (msg) { $('#editError').text(msg).show(); }
-        );
-    });
-
-    // ── Confirm delete ──────────────────────────────────────
-    $('#confirmDeleteBtn').on('click', function () {
-        var id = $('#deleteId').val();
-        Student.remove(id, function () {
-            $('#deleteModal').modal('hide');
+    // DELETE
+    function remove(id, success, error) {
+        $.ajax({
+            url: BASE_URL + '/' + id,
+            type: 'DELETE',
+            success: success,
+            error: error
         });
-    });
+    }
+    return {
+        getAll: getAll,
+        getById: getById,
+        create: create,
+        edit: edit,
+        remove: remove
+    };
 
-});
+})();
