@@ -1,62 +1,114 @@
-﻿<!DOCTYPE html>
+﻿```cshtml
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Attendance Manager</title>
+
+    <title>@ViewData["Title"] - AMS</title>
+
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/global.css" asp-append-version="true" />
-    @await RenderSectionAsync("Styles", required: false)
+
+    @RenderSection("Styles", required: false)
 </head>
+
 <body>
 
-    <div class="d-flex">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
 
-        <!-- ===== SIDEBAR ===== -->
-        <div class="sidebar">
+        <!-- Brand Logo -->
+        <div class="sidebar-brand">
+            <img src="~/Assets/dbtc_logo.png" alt="Logo" class="sidebar-logo" />
+            <span class="sidebar-brand-name">Attendance Manager</span>
+        </div>
 
-            <!-- Brand Logo -->
-            <div class="sidebar-brand">
-                <img src="~/Assets/dbtc_logo.png" alt="Logo" class="sidebar-logo" />
-                <span class="sidebar-brand-name">Attendance Manager</span>
+
+            <!-- NAVIGATION -->
+            <div class="sidebar-nav">
+
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="nav-link active">
+
+                    <i class="fa-solid fa-table-cells-large"></i>
+                    <span>Dashboard</span>
+
+                </a>
+
+                <a asp-controller="Student"
+                   asp-action="Index"
+                   class="nav-link">
+
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+
+                </a>
+
+                <a asp-controller="Teacher"
+                   asp-action="Index"
+                   class="nav-link">
+
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>Teachers</span>
+
+                </a>
+
+                <a asp-controller="Course"
+                   asp-action="Index"
+                   class="nav-link">
+
+                    <i class="fa-solid fa-book"></i>
+                    <span>Course</span>
+
+                </a>
+
+                <a asp-controller="Attendance"
+                   asp-action="Index"
+                   class="nav-link">
+
+                    <i class="fa-solid fa-user-check"></i>
+                    <span>Attendance</span>
+
+                </a>
+
             </div>
 
-            <!-- Navigation Links -->
-            <nav class="sidebar-nav">
-                <a asp-controller="Home" asp-action="Index"
-                   class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3A1.5 1.5 0 0 1 15 10.5v3A1.5 1.5 0 0 1 13.5 15h-3A1.5 1.5 0 0 1 9 13.5v-3z" />
-                    </svg>
-                    Dashboard
-                </a>
+        </div>
 
-                <a asp-controller="Student" asp-action="Index"
-                   class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Student" ? "active" : "")">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.029 10 8 10c-2.029 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                    </svg>
-                    Students
-                </a>
+        <!-- BOTTOM SECTION -->
+        <div class="sidebar-bottom">
 
-                <a asp-controller="Teacher" asp-action="Index"
-                   class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Teacher" ? "active" : "")">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M1 2a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v1h.5A1.5 1.5 0 0 1 16 4.5v7a1.5 1.5 0 0 1-1.5 1.5H14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1H1.5A1.5 1.5 0 0 1 0 11.5v-7A1.5 1.5 0 0 1 1.5 3H2V2zm1 1v9h10V3H2zm11 1v8h1.5a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5H13zM1 4.5v7a.5.5 0 0 0 .5.5H2V4H1.5a.5.5 0 0 0-.5.5z" />
-                    </svg>
-                    Teachers
-                </a>
+            <!-- USER -->
+            <div class="user-info">
 
-                <a asp-controller="Course" asp-action="Index"
-                   class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Course" ? "active" : "")">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.966c-.917-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
-                    </svg>
-                    Course
-                </a>
-            </nav>
+                <div class="user-avatar">
+                    MA
+                </div>
 
+                <div>
+
+                    <div class="user-name">
+                        Martin Aranzado
+                    </div>
+
+                    <div class="user-role">
+                        Admin
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- LOGOUT -->
             <!-- Admin Info -->
             <div class="sidebar-footer">
                 <div class="admin-info">
@@ -76,38 +128,29 @@
             </div>
 
         </div>
-        <!-- ===== END SIDEBAR ===== -->
-        <!-- ===== MAIN CONTENT ===== -->
-        <div class="content-wrapper">
 
-            <!-- Top Header -->
-            <div class="top-header">
-                <span>ADMIN DASHBOARD</span>
-                <div class="header-icons">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
-                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319z" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                    </svg>
-                </div>
-            </div>
+    <!-- MAIN CONTENT -->
+    <div class="content-wrapper">
 
-            <!-- Page Body -->
-            <div class="page-body">
-                @RenderBody()
-            </div>
-
+        <!-- HEADER -->
+        <div class="top-header">
+            Attendance Management System
         </div>
-        <!-- ===== END MAIN CONTENT ===== -->
+
+        <!-- PAGE CONTENT -->
+        <div class="page-body">
+            @RenderBody()
+        </div>
 
     </div>
 
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SCRIPTS -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 </html>
+```

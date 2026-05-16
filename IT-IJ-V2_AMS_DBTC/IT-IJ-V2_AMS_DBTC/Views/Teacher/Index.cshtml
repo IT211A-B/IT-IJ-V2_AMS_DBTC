@@ -1,7 +1,5 @@
 ﻿@{
-	@using IT_IJ_V2_AMS_DBTC.Models;
-    ViewData["Title"] = "Teacher Page";
-	@model IEnumerable<StudentModels>
+	@model IEnumerable<IT_IJ_V2_AMS_DBTC.Models.TeacherModels>
 }
 
 @section Styles {
@@ -10,9 +8,7 @@
 @section Scripts {
 	<script src="~/js/site.js" asp-append-version="true"></script>
 	<script src="~/jquery/student.js" asp-append-version="true"></script>
-}
-
-<!--Header-->
+}<!--Header-->
 <div class="page-header">
 	<span class="card-title">Teacher List</span>
 	<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Teachers</button>

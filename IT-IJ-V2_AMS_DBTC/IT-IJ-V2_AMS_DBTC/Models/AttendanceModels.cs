@@ -10,5 +10,6 @@ namespace IT_IJ_V2_AMS_DBTC.Models
         public int CourseId { get; set; }
         public DateTime Date { get; set; }
         public Status Status { get; set; }
+
     }
 }
