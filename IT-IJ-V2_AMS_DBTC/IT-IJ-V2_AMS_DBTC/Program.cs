@@ -1,15 +1,9 @@
 
-using IT_IJ_V2_AMS_DBTC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddScoped<AttendanceService>();
-builder.Services.AddScoped<StudentService>();
-builder.Services.AddScoped<TeacherService>();
-builder.Services.AddScoped<CourseService>();
 
 builder.Services.AddHttpClient("AttendanceAPI", client =>
 {
