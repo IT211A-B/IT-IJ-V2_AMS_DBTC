@@ -1,0 +1,156 @@
+﻿```cshtml
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - AMS</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @RenderSection("Styles", required: false)
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <!-- Brand Logo -->
+        <div class="sidebar-brand">
+            <img src="~/Assets/dbtc_logo.png" alt="Logo" class="sidebar-logo" />
+            <span class="sidebar-brand-name">Attendance Manager</span>
+        </div>
+
+
+            <!-- NAVIGATION -->
+            <div class="sidebar-nav">
+
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="nav-link active">
+
+                    <i class="fa-solid fa-table-cells-large"></i>
+                    <span>Dashboard</span>
+
+                </a>
+
+                <a asp-controller="Student"
+                   asp-action="Index"
+                   class="nav-link">
+
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Students</span>
+
+                </a>
+
+                <a asp-controller="Teacher"
+                   asp-action="Index"
+                   class="nav-link">
+
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>Teachers</span>
+
+                </a>
+
+                <a asp-controller="Course"
+                   asp-action="Index"
+                   class="nav-link">
+
+                    <i class="fa-solid fa-book"></i>
+                    <span>Course</span>
+
+                </a>
+
+                <a asp-controller="Attendance"
+                   asp-action="Index"
+                   class="nav-link">
+
+                    <i class="fa-solid fa-user-check"></i>
+                    <span>Attendance</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- BOTTOM SECTION -->
+        <div class="sidebar-bottom">
+
+            <!-- USER -->
+            <div class="user-info">
+
+                <div class="user-avatar">
+                    MA
+                </div>
+
+                <div>
+
+                    <div class="user-name">
+                        Martin Aranzado
+                    </div>
+
+                    <div class="user-role">
+                        Admin
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- LOGOUT -->
+            <!-- Admin Info -->
+            <div class="sidebar-footer">
+                <div class="admin-info">
+                    <div class="admin-avatar">MA</div>
+                    <div class="admin-details">
+                        <span class="admin-name">Martin Aranzado</span>
+                        <span class="admin-role">Admin</span>
+                    </div>
+                </div>
+                <a asp-controller="Account" asp-action="Logout" class="btn-logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                    </svg>
+                    Log Out
+                </a>
+            </div>
+
+        </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="content-wrapper">
+
+        <!-- HEADER -->
+        <div class="top-header">
+            Attendance Management System
+        </div>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-body">
+            @RenderBody()
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
+```

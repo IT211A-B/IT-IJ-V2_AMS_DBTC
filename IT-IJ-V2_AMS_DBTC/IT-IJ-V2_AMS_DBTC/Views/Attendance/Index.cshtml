@@ -1,0 +1,398 @@
+﻿@using IT_IJ_V2_AMS_DBTC.Models
+@model IEnumerable<AttendanceModels>
+
+
+@{
+    ViewData["Title"] = "Attendance";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/attendance.js" asp-append-version="true"></script>
+}
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+
+    <div>
+        <div class="card-title">
+            Attendance Management
+        </div>
+
+        <div class="card-subtitle">
+            Monitor and manage student attendance records
+        </div>
+    </div>
+
+    <button class="btn-add"
+            data-bs-toggle="modal"
+            data-bs-target="#addAttendanceModal">
+
+        + Add Attendance
+
+    </button>
+
+</div>
+
+<!-- SEARCH -->
+<div class="search-row">
+
+    <input type="text"
+           id="searchAttendance"
+           placeholder="Search student..." />
+
+    <select class="form-control" style="max-width: 180px;">
+        <option>All Status</option>
+        <option>Present</option>
+        <option>Absent</option>
+        <option>Late</option>
+    </select>
+
+</div>
+
+<!-- LEGEND -->
+<div class="att-legend">
+
+    <span>
+        <span class="att-dot" style="background:#2d8a5e;"></span>
+        Present
+    </span>
+
+    <span>
+        <span class="att-dot" style="background:#c0392b;"></span>
+        Absent
+    </span>
+
+    <span>
+        <span class="att-dot" style="background:#c97c1a;"></span>
+        Late
+    </span>
+
+</div>
+
+<!-- TABLE -->
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Attendance ID</th>
+            <th>Student Name</th>
+            <th>Course</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Remarks</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <tr>
+
+            <td>ATT-001</td>
+            <td>Juan Dela Cruz</td>
+            <td>BSIT</td>
+            <td>May 15, 2026</td>
+
+            <td>
+                <span class="att-dot"
+                      style="background:#2d8a5e;">
+                </span>
+
+                Present
+            </td>
+
+            <td>Completed attendance</td>
+
+            <td>
+
+                <button class="btn btn-sm btn-secondary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editAttendanceModal">
+
+                    Edit
+
+                </button>
+
+                <button class="btn btn-sm btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteAttendanceModal">
+
+                    Delete
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>ATT-002</td>
+            <td>Maria Santos</td>
+            <td>BSCS</td>
+            <td>May 15, 2026</td>
+
+            <td>
+                <span class="att-dot"
+                      style="background:#c0392b;">
+                </span>
+
+                Absent
+            </td>
+
+            <td>Excused absence</td>
+
+            <td>
+
+                <button class="btn btn-sm btn-secondary">
+                    Edit
+                </button>
+
+                <button class="btn btn-sm btn-danger">
+                    Delete
+                </button>
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>ATT-003</td>
+            <td>Carlo Mendoza</td>
+            <td>BSIS</td>
+            <td>May 15, 2026</td>
+
+            <td>
+                <span class="att-dot"
+                      style="background:#c97c1a;">
+                </span>
+
+                Late
+            </td>
+
+            <td>Arrived 15 mins late</td>
+
+            <td>
+
+                <button class="btn btn-sm btn-secondary">
+                    Edit
+                </button>
+
+                <button class="btn btn-sm btn-danger">
+                    Delete
+                </button>
+
+            </td>
+
+        </tr>
+
+    </tbody>
+
+</table>
+
+<!-- PAGINATION -->
+<div class="pagination-row">
+
+    <div>
+        Showing 1 to 3 of 3 entries
+    </div>
+
+    <div>
+
+        <button class="page-btn">
+            Previous
+        </button>
+
+        <button class="page-btn active">
+            1
+        </button>
+
+        <button class="page-btn">
+            Next
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal fade"
+     id="addAttendanceModal"
+     tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Add Attendance
+                </h5>
+
+            </div>
+
+            <div class="modal-body">
+
+                <input type="text"
+                       class="form-control mb-3"
+                       placeholder="Student Name" />
+
+                <input type="text"
+                       class="form-control mb-3"
+                       placeholder="Course" />
+
+                <input type="date"
+                       class="form-control mb-3" />
+
+                <select class="form-control mb-3">
+
+                    <option>Select Status</option>
+                    <option>Present</option>
+                    <option>Absent</option>
+                    <option>Late</option>
+
+                </select>
+
+                <textarea class="form-control"
+                          rows="3"
+                          placeholder="Remarks">
+                </textarea>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button class="btn btn-primary">
+                    Save
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal fade"
+     id="editAttendanceModal"
+     tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Edit Attendance
+                </h5>
+
+            </div>
+
+            <div class="modal-body">
+
+                <input type="text"
+                       class="form-control mb-3"
+                       value="Juan Dela Cruz" />
+
+                <input type="text"
+                       class="form-control mb-3"
+                       value="BSIT" />
+
+                <input type="date"
+                       class="form-control mb-3" />
+
+                <select class="form-control mb-3">
+
+                    <option>Present</option>
+                    <option>Absent</option>
+                    <option>Late</option>
+
+                </select>
+
+                <textarea class="form-control"
+                          rows="3">Completed attendance</textarea>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button class="btn btn-primary">
+                    Update
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- DELETE MODAL -->
+<div class="modal fade"
+     id="deleteAttendanceModal"
+     tabindex="-1">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Delete Attendance
+                </h5>
+
+            </div>
+
+            <div class="modal-body">
+
+                Are you sure you want to remove this attendance record?
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button class="btn btn-danger">
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+```
